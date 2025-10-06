@@ -54,7 +54,8 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        $writers=Writer::where('is_active',1)->get();
+        return view('admin.book.edit',compact('book','writers'));
     }
 
     /**
@@ -62,7 +63,12 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+        $status=$book->update($request->only('title','description','publication_date'));
+        $book->writers()->sync($request->only('writers'));
+        if ($status) {
+            return redirect()->route('books.index');
+        }
+        return redirect()->route('books.edit');
     }
 
     /**

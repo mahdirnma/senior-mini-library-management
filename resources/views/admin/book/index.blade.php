@@ -37,7 +37,11 @@
                                     <button type="submit" class="text-cyan-600 cursor-pointer">update</button>
                                 </form>
                             </td>
-                            <td class="text-center">{{--{{$course->professor->name}}--}}</td>
+                            <td class="text-center">
+                                @foreach($book->writers as $writer)
+                                    {{$writer->name}},
+                                @endforeach
+                            </td>
                             <td class="text-center">{{$book->publication_date}}</td>
                             <td class="text-center">{{$book->description}}</td>
                             <td class="text-center">{{$book->title}}</td>
