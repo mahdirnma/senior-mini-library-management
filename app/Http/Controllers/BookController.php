@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+use App\Models\Writer;
+use function Pest\Laravel\get;
 
 class BookController extends Controller
 {
@@ -22,7 +24,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        $writers=Writer::where('is_active',1)->get();
+        return view('admin.book.create',compact('writers'));
     }
 
     /**
@@ -30,7 +33,12 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        //
+        $book = Book::create($request->only('title','description','publication_date'));
+        $book->writers()->attach($request->only('writers'));
+        if ($book) {
+            return redirect()->route('books.index');
+        }
+        return redirect()->route('books.create');
     }
 
     /**
