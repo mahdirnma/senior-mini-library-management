@@ -1,11 +1,17 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WriterController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
     Route::get('/',[UserController::class,'index'])->name('home');
+    Route::resource('books',BookController::class);
+    Route::resource('writers',WriterController::class);
+    Route::resource('members',MemberController::class);
     Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 });
 Route::middleware('guest')->group(function () {
