@@ -17,6 +17,8 @@ Route::middleware('auth')->group(function () {
     });
     Route::middleware('isMember')->group(function () {
         Route::get('/member/books',[MembersBookController::class,'index'])->name('member.books');
+        Route::get('/member/books/create',[MembersBookController::class,'create'])->name('member.books.create');
+        Route::post('/member/books/store',[MembersBookController::class,'store'])->name('member.books.store');
     });
     Route::middleware('isAdmin')->group(function () {
         Route::get('/',[UserController::class,'index'])->name('home');
