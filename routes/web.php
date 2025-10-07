@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
     Route::middleware('isWriter')->group(function () {
         Route::get('/writer/books',[WritersBookController::class,'index'])->name('writer.books');
+        Route::get('/writer/books/create',[WritersBookController::class,'create'])->name('writer.books.create');
+        Route::post('/writer/books/store',[WritersBookController::class,'store'])->name('writer.books.store');
     });
     Route::middleware('isMember')->group(function () {
         Route::get('/member/books',[MembersBookController::class,'index'])->name('member.books');
