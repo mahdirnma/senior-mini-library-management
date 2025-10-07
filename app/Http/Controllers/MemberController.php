@@ -77,6 +77,9 @@ class MemberController extends Controller
      */
     public function destroy(Member $member)
     {
-        //
+        $user=User::where('email',$member->email)->first();
+        $user->update(['is_active'=>0]);
+        $member->update(['is_active'=>0]);
+        return redirect()->route('members.index');
     }
 }
