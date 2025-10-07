@@ -10,7 +10,9 @@ use App\Http\Controllers\WritersBookController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
-    Route::get('/writer/books',[WritersBookController::class,'index'])->name('writer.books');
+    Route::middleware('isWriter')->group(function () {
+        Route::get('/writer/books',[WritersBookController::class,'index'])->name('writer.books');
+    });
     Route::get('/member/books',[MembersBookController::class,'index'])->name('member.books');
     Route::middleware('isAdmin')->group(function () {
         Route::get('/',[UserController::class,'index'])->name('home');
