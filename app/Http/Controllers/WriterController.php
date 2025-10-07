@@ -55,7 +55,7 @@ class WriterController extends Controller
      */
     public function edit(Writer $writer)
     {
-        //
+        return view('admin.writer.edit', compact('writer'));
     }
 
     /**
@@ -63,7 +63,13 @@ class WriterController extends Controller
      */
     public function update(UpdateWriterRequest $request, Writer $writer)
     {
-        //
+        $status=$writer->update($request->only('name','age','gender','phone'));
+        $user=User::where('email',$writer->email)->first();
+        $status=$user->update($request->only('name'));
+        if($status){
+            return redirect()->route('writers.index');
+        }
+        return redirect()->route('writers.edit');
     }
 
     /**
