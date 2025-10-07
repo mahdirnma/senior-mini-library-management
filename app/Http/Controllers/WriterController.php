@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Writer;
 use App\Http\Requests\StoreWriterRequest;
 use App\Http\Requests\UpdateWriterRequest;
@@ -22,7 +23,7 @@ class WriterController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.writer.create');
     }
 
     /**
@@ -30,7 +31,15 @@ class WriterController extends Controller
      */
     public function store(StoreWriterRequest $request)
     {
-        //
+        $writer=Writer::create($request->only('name','age','gender','phone','email'));
+        $user=User::create([
+            ...$request->only('name','email','password'),
+            'role'=>'writer'
+        ]);
+        if($user && $writer){
+            return redirect()->route('writers.index');
+        }
+        return redirect()->route('writers.create');
     }
 
     /**
