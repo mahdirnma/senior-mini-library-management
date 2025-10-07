@@ -55,7 +55,7 @@ class MemberController extends Controller
      */
     public function edit(Member $member)
     {
-        //
+        return view('admin.member.edit',compact('member'));
     }
 
     /**
@@ -63,7 +63,13 @@ class MemberController extends Controller
      */
     public function update(UpdateMemberRequest $request, Member $member)
     {
-        //
+        $status=$member->update($request->only('name','age','gender','phone'));
+        $user=User::where('email',$member->email)->first();
+        $status=$user->update($request->only('name'));
+        if($status){
+            return redirect()->route('members.index');
+        }
+        return redirect()->back();
     }
 
     /**
