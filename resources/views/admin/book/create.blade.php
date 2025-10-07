@@ -39,7 +39,8 @@
                         <div class="w-5/6 h-auto flex flex-row-reverse justify-between pt-4 mb-6">
                             @foreach($writers as $writer)
                                 <label class="font-semibold ml-5 cursor-pointer">
-                                    <input type="radio" name="writers" id="writers" value="{{$writer->id}}">
+                                    <input type="checkbox" name="writers[]" id="writers" value="{{$writer->id}}">
+{{--                                    <input type="radio" name="writers" id="writers" value="{{$writer->id}}">--}}
                                     {{$writer->name}}
                                 </label>
                             @endforeach

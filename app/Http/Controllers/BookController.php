@@ -34,7 +34,7 @@ class BookController extends Controller
     public function store(StoreBookRequest $request)
     {
         $book = Book::create($request->only('title','description','publication_date'));
-        $book->writers()->attach($request->only('writers'));
+        $book->writers()->attach($request->writers);
         if ($book) {
             return redirect()->route('books.index');
         }
@@ -64,7 +64,7 @@ class BookController extends Controller
     public function update(UpdateBookRequest $request, Book $book)
     {
         $status=$book->update($request->only('title','description','publication_date'));
-        $book->writers()->sync($request->only('writers'));
+        $book->writers()->sync($request->writers);
         if ($status) {
             return redirect()->route('books.index');
         }
