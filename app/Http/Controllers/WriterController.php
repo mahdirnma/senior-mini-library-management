@@ -77,6 +77,9 @@ class WriterController extends Controller
      */
     public function destroy(Writer $writer)
     {
-        //
+        $user=User::where('email',$writer->email)->first();
+        $user->update(['is_active' => 0]);
+        $writer->update(['is_active' => 0]);
+        return redirect()->route('writers.index');
     }
 }
