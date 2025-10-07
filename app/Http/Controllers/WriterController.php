@@ -13,7 +13,8 @@ class WriterController extends Controller
      */
     public function index()
     {
-        //
+        $writers = Writer::where('is_active', 1)->paginate(2);
+        return view('admin.writer.index', compact('writers'));
     }
 
     /**
